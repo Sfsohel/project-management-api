@@ -28,13 +28,13 @@ class CreateProjectsTable extends Migration
             $table->date('start_date')->nullable();
             $table->date('awarded_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->enum('funded_by', ['Government', 'Non Government'])->default('General');
-            $table->interger('time_revised')->nullable();
-            $table->interger('cost_revised')->nullable();
+            $table->enum('funded_by', ['Government', 'Non Government'])->default('Government');
+            $table->integer('time_revised')->nullable();
+            $table->integer('cost_revised')->nullable();
             $table->text('description')->nullable();
             $table->text('objective')->nullable();
             $table->text('reference_terms')->nullable();
-            $table->text('tecnical_document')->nullable();
+            $table->text('technical_document')->nullable();
             $table->text('solution_component')->nullable();
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Resources\DepartmentController;
 use App\Http\Controllers\Resources\DesignationController;
 use App\Http\Controllers\Resources\ResourceController;
@@ -32,4 +33,5 @@ Route::group([
     Route::resource('/designaiton', DesignationController::class);
     Route::resource('/skill', SkillController::class);
     Route::resource('/resource', ResourceController::class);
+    Route::resource('/project', ProjectController::class);
 });
