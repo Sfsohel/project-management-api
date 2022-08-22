@@ -29,7 +29,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        if ($request->hasfile('attachment')) {
+
+            foreach ($request->file('attachment') as $file) {
+                $name = $file->getClientOriginalName();
+                $file->move(public_path() . '/project_files/', $name);
+                $data[] = $name;
+            }
+        }
+        return [$request->all(),$data];
     }
 
     /**
