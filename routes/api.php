@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Project\ModuleController;
+use App\Http\Controllers\Project\PageController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Resources\DepartmentController;
 use App\Http\Controllers\Resources\DesignationController;
@@ -34,4 +36,6 @@ Route::group([
     Route::resource('/skill', SkillController::class);
     Route::resource('/resource', ResourceController::class);
     Route::resource('/project', ProjectController::class);
+    Route::resource('/module', ModuleController::class);
+    Route::resource('/page', PageController::class);
 });

@@ -3,26 +3,20 @@
 namespace App\Http\Controllers\Project;
 
 use App\Http\Controllers\Controller;
-use App\Models\Project\Project;
+use App\Models\Project\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectController extends Controller
+class PageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['create', 'edit']]);
-    }
     public function index()
     {
-        $company_id = Auth::user()->company_id;
-        $projects = Project::where('company_id', $company_id)->get();
-        return response()->json($projects, 200);
+        //
     }
 
     /**
@@ -33,19 +27,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $attachment = [];
-        if ($request->hasfile('attachment')) {
-            foreach ($request->file('attachment') as $file) {
-                $name = time().$file->getClientOriginalName();
-                $file->move(public_path() . '/project_files/', $name);
-                $attachment[] = $name;
-            }
-        }
-        $data['attachment'] = serialize($attachment);
-        $data['company_id'] = Auth::user()->company_id;
-        $project = Project::create($data);
-        return $project;
+        //
     }
 
     /**
@@ -56,7 +38,9 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $company_id = Auth::user()->company_id;
+        $pages = Page::with(['project','module'])->where('company_id', $company_id)->where('module_id',$id)->get();
+        return response()->json($pages, 200);
     }
 
     /**
