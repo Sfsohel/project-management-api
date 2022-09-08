@@ -32,7 +32,7 @@ class ResourceController extends Controller
                 }, 
                 'designation' => function ($q) {
                     $q->select('id', 'name');
-                }
+                },'skill'
             ])->get();
         return response()->json(["departments"=>$departments, "designations" =>$designations, "skills" => $skills,'resources'=>$users], 200);
     }
@@ -56,10 +56,16 @@ class ResourceController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        // return $data;
         unset($data['skills']);
         $data['company_id'] = Auth::user()->company_id;
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
+        $skills = [];
+        foreach ($request->skills as $key => $skill) {
+            array_push($skills,$skill['id']);
+        }
+        $user->skill()->attach($skills);
         return $user;
     }
 
@@ -94,7 +100,18 @@ class ResourceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        unset($data['skills']);
+        $data['company_id'] = Auth::user()->company_id;
+        $data['password'] = bcrypt($request->password);
+        $user = User::where('id',$id)->first();
+        $skills = [];
+        foreach ($request->skills as $key => $skill) {
+            array_push($skills,$skill['id']);
+        }
+        $user->skill()->sync($skills);
+        $user->update($data);
+        return $user;
     }
 
     /**
@@ -105,6 +122,7 @@ class ResourceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::where('id', $id)->delete();
+        return response()->json($user, 200);
     }
 }

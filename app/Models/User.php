@@ -13,6 +13,7 @@ class User extends Authenticatable  implements JWTSubject
     use HasFactory, Notifiable;
     
     protected $guarded = [];
+    protected $appends = ['full_name'];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,6 +37,10 @@ class User extends Authenticatable  implements JWTSubject
      *
      * @return mixed
      */
+    public function getFullNameAttribute() // notice that the attribute name is in CamelCase.
+    {
+        return $this->f_name . ' ' . $this->l_name;
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -60,5 +65,13 @@ class User extends Authenticatable  implements JWTSubject
     public function designation()
     {
         return $this->belongsTo(Designation::class);
+    }
+    public function skill()
+    {
+        return $this->belongstoMany(Skill::class);
+    }
+    public function project()
+    {
+        return $this->belongstoMany(Project\Project::class);
     }
 }

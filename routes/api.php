@@ -6,10 +6,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Project\ModuleController;
 use App\Http\Controllers\Project\PageController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Project\ProjectResourceController;
 use App\Http\Controllers\Resources\DepartmentController;
 use App\Http\Controllers\Resources\DesignationController;
 use App\Http\Controllers\Resources\ResourceController;
 use App\Http\Controllers\Resources\SkillController;
+use App\Http\Controllers\Task\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,8 @@ Route::group([
     Route::resource('/skill', SkillController::class);
     Route::resource('/resource', ResourceController::class);
     Route::resource('/project', ProjectController::class);
+    Route::resource('/project-resources', ProjectResourceController::class);
     Route::resource('/module', ModuleController::class);
     Route::resource('/page', PageController::class);
+    Route::resource('/task', TaskController::class);
 });
