@@ -15,11 +15,18 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $company_id = Auth::user()->company_id;
+        $tasks = Task::where('company_id', $company_id)->where('page_id',$request->page_id)->get();
+        return response()->json($tasks, 200);
     }
-
+    public function publish($id)
+    {
+        $company_id = Auth::user()->company_id;
+        $tasks = Task::where('company_id', $company_id)->where('id',$id)->update(['is_draft'=>1]);
+        return response()->json($tasks, 200);
+    }
     /**
      * Store a newly created resource in storage.
      *

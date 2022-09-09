@@ -41,5 +41,6 @@ Route::group([
     Route::resource('/project-resources', ProjectResourceController::class);
     Route::resource('/module', ModuleController::class);
     Route::resource('/page', PageController::class);
+    Route::get('/task-publish/{id}', [TaskController::class, 'publish']);
     Route::resource('/task', TaskController::class);
 });
