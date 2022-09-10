@@ -27,6 +27,10 @@ class TaskController extends Controller
         $tasks = Task::where('company_id', $company_id)->where('id',$id)->update(['is_draft'=>1]);
         return response()->json($tasks, 200);
     }
+    public function assignUser(Request $request)
+    {
+        return $request->all();
+    }
     /**
      * Store a newly created resource in storage.
      *

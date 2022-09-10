@@ -41,6 +41,8 @@ Route::group([
     Route::resource('/project-resources', ProjectResourceController::class);
     Route::resource('/module', ModuleController::class);
     Route::resource('/page', PageController::class);
+    // task assign
     Route::get('/task-publish/{id}', [TaskController::class, 'publish']);
+    Route::post('/task-assign', [TaskController::class, 'assignUser']);
     Route::resource('/task', TaskController::class);
 });
