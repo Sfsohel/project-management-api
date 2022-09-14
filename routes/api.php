@@ -11,6 +11,7 @@ use App\Http\Controllers\Resources\DepartmentController;
 use App\Http\Controllers\Resources\DesignationController;
 use App\Http\Controllers\Resources\ResourceController;
 use App\Http\Controllers\Resources\SkillController;
+use App\Http\Controllers\Task\MyPendingTaskController;
 use App\Http\Controllers\Task\TaskController;
 
 /*
@@ -45,4 +46,6 @@ Route::group([
     Route::get('/task-publish/{id}', [TaskController::class, 'publish']);
     Route::post('/task-assign', [TaskController::class, 'assignUser']);
     Route::resource('/task', TaskController::class);
+    //pending task
+    Route::resource('/pending-task', MyPendingTaskController::class);
 });

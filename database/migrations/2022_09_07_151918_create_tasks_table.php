@@ -16,6 +16,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->text('name')->nullable();
+            $table->string('issue_no')->nullable();
             $table->string('menu_name')->nullable();
             $table->text('attachment')->nullable();
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('cascade');
@@ -29,6 +30,7 @@ class CreateTasksTable extends Migration
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->double('est_hour')->nullable();
+            $table->integer('progress')->nullable();
             $table->mediumText('description')->nullable();
             $table->mediumText('impact_description')->nullable();
             $table->boolean('is_draft')->default(false);

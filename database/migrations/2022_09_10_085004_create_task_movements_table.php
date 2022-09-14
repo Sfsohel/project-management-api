@@ -17,6 +17,7 @@ class CreateTaskMovementsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('task_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('company_id')->nullable()->constrained()->onDelete('cascade');
             $table->mediumText('description')->nullable();
             $table->timestamps();
         });

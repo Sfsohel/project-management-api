@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task\Task;
+use App\Models\Task\TaskMovement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +16,19 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['create', 'edit']]);
+    }
+
     public function index(Request $request)
     {
         $company_id = Auth::user()->company_id;
-        $tasks = Task::where('company_id', $company_id)->where('page_id',$request->page_id)->get();
+        $tasks = Task::with([
+            'task_movement'=>function($q){
+                $q->select('id','task_id');
+            }
+            ])->where('company_id', $company_id)->where('page_id',$request->page_id)->get();
         return response()->json($tasks, 200);
     }
     public function publish($id)
@@ -29,7 +39,13 @@ class TaskController extends Controller
     }
     public function assignUser(Request $request)
     {
+        $data = $request->all();
+        $company_id = Auth::user()->company_id;
+        $data['company_id'] = $company_id;
+        $task_movement = TaskMovement::create($data);
+        return response()->json($task_movement, 200);
         return $request->all();
+
     }
     /**
      * Store a newly created resource in storage.
@@ -64,7 +80,8 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        $task = Task::where('id',$id)->first();
+        return $task;
     }
 
     /**
