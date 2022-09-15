@@ -81,7 +81,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::where('id',$id)->first();
-        return $task;
+        return response()->json($task, 200);
     }
 
     /**
