@@ -80,7 +80,17 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task = Task::where('id',$id)->first();
+        $task = Task::with([
+            'project'=>function($q){
+                $q->select('id','name');
+            },
+            'module'=>function($q){
+                $q->select('id','name');
+            },
+            'page'=>function($q){
+                $q->select('id','name');
+            },'user'
+            ])->where('id',$id)->first();
         return response()->json($task, 200);
     }
 
