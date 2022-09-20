@@ -13,6 +13,7 @@ use App\Http\Controllers\Resources\ResourceController;
 use App\Http\Controllers\Resources\SkillController;
 use App\Http\Controllers\Task\MyPendingTaskController;
 use App\Http\Controllers\Task\TaskController;
+use App\Models\Task\TaskMovementTracking;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,6 @@ Route::group([
     Route::resource('/task', TaskController::class);
     //pending task
     Route::resource('/pending-task', MyPendingTaskController::class);
+    Route::post('/task-tracking/start-time', [TaskMovementTracking::class, 'startTime']);
+    Route::resource('/task-tracking', TaskMovementTracking::class);
 });
