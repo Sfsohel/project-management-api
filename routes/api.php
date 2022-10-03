@@ -11,9 +11,10 @@ use App\Http\Controllers\Resources\DepartmentController;
 use App\Http\Controllers\Resources\DesignationController;
 use App\Http\Controllers\Resources\ResourceController;
 use App\Http\Controllers\Resources\SkillController;
+use App\Http\Controllers\Task\CommentController;
 use App\Http\Controllers\Task\MyPendingTaskController;
 use App\Http\Controllers\Task\TaskController;
-use App\Models\Task\TaskMovementTracking;
+use App\Http\Controllers\Task\TaskMovementTrackingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::group([
     Route::resource('/task', TaskController::class);
     //pending task
     Route::resource('/pending-task', MyPendingTaskController::class);
-    Route::post('/task-tracking/start-time', [TaskMovementTracking::class, 'startTime']);
-    Route::resource('/task-tracking', TaskMovementTracking::class);
+    Route::post('/task-tracking/start-time', [TaskMovementTrackingController::class, 'startTime']);
+    Route::post('/task-tracking/end-time', [TaskMovementTrackingController::class, 'endTime']);
+    Route::resource('/task-tracking', TaskMovementTrackingController::class);
+    Route::resource('/comment', CommentController::class);
 });

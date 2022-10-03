@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->string('attachment')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('task_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('task_movement_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });

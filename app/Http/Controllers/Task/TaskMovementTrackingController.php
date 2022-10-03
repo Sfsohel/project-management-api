@@ -13,9 +13,11 @@ class TaskMovementTrackingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data =  $request->all();
+        $trackings= TaskMovementTracking::where('user_id',$data['user_id'])->where('task_id',$data['task_id'])->where('task_movement_id',$data['task_movement_id'])->get();
+        return response()->json($trackings, 200);
     }
 
     /**
@@ -26,9 +28,17 @@ class TaskMovementTrackingController extends Controller
      */
     public function startTime(Request $request)
     {
+        // return "good";
         $data = $request->all();
         $create = TaskMovementTracking::create($data);
         return $create;
+    }
+    public function endTime(Request $request)
+    {
+        // return "good";
+        $data = $request->all();
+        $create = TaskMovementTracking::where('id',$data['id'])->update(["end_time"=>$data['end_time']]);
+        return "updated";
     }
     public function store(Request $request)
     {

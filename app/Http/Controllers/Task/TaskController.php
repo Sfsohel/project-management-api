@@ -81,6 +81,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::with([
+            'last_task_movement',
             'project'=>function($q){
                 $q->select('id','name');
             },
@@ -103,7 +104,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        Task::where('id',$id)->update($data);
+        return response()->json('Updated Successfully');
     }
 
     /**

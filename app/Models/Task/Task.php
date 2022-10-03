@@ -8,6 +8,7 @@ use App\Models\Project\Project;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Task extends Model
 {
@@ -16,6 +17,10 @@ class Task extends Model
     public function task_movement()
     {
         return $this->hasMany(TaskMovement::class);
+    }
+    public function last_task_movement()
+    {
+        return $this->hasOne(TaskMovement::class)->where('user_id',Auth::user()->id)->latest();
     }
     public function project()
     {
